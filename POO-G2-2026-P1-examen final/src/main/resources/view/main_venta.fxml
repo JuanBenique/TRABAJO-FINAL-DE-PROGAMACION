@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="0" style="-fx-background-color: #1a1f2e;"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.upeu.controller.VentaController">
+
+    <HBox style="-fx-background-color: #111827; -fx-padding: 16 24 16 24;" alignment="CENTER_LEFT" spacing="10">
+        <Label text="🧾" style="-fx-font-size: 20;"/>
+        <VBox spacing="2">
+            <Label text="Gestión de Ventas" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+            <Label text="Registra y administra las ventas" style="-fx-text-fill: #6b7280; -fx-font-size: 11;"/>
+        </VBox>
+    </HBox>
+
+    <HBox style="-fx-background-color: #1a4a8a; -fx-min-height: 3; -fx-max-height: 3;"/>
+
+    <VBox style="-fx-padding: 24;" spacing="20" VBox.vgrow="ALWAYS">
+
+        <VBox style="-fx-background-color: #1e2536; -fx-background-radius: 8; -fx-padding: 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4);" spacing="16">
+
+            <Label text="DATOS DE LA VENTA" style="-fx-text-fill: #93b4d9; -fx-font-size: 11; -fx-font-weight: bold;"/>
+
+            <GridPane hgap="24" vgap="14">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="110" prefWidth="110"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="160"/>
+                    <ColumnConstraints minWidth="110" prefWidth="110"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="160"/>
+                </columnConstraints>
+
+                <Label text="ID Venta:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtIdVenta" promptText="Ej: 1" style="-fx-background-color: #111827; -fx-text-fill: white; -fx-border-color: #2d3a52; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Cliente:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="cmbCliente" prefWidth="200" style="-fx-background-color: #111827; -fx-border-color: #2d3a52; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Fecha Venta:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <DatePicker fx:id="dpFechaVenta" editable="false" style="-fx-background-color: #111827; -fx-border-color: #2d3a52; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Producto:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <ComboBox fx:id="cmbProducto" prefWidth="200" style="-fx-background-color: #111827; -fx-border-color: #2d3a52; -fx-border-radius: 6; -fx-background-radius: 6;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <Label text="Precio Unitario:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtPrecioUnitario" promptText="0.00" editable="false" style="-fx-background-color: #0f1520; -fx-text-fill: #93b4d9; -fx-border-color: #1a4a8a; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12;" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+
+                <Label text="Cantidad:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="txtCantidad" promptText="Ej: 2" style="-fx-background-color: #111827; -fx-text-fill: white; -fx-border-color: #2d3a52; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12;" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                <Label text="Neto Total:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtNetoTotal" promptText="0.00" editable="false" style="-fx-background-color: #0f1520; -fx-text-fill: white; -fx-border-color: #2d3a52; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12;" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Label text="IGV (18%):" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtIgv" promptText="0.00" editable="false" style="-fx-background-color: #0f1520; -fx-text-fill: #93b4d9; -fx-border-color: #1a4a8a; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-weight: bold;" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <Label text="Precio Total:" style="-fx-text-fill: #d1d5db; -fx-font-size: 13;" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <TextField fx:id="txtPrecioTotal" promptText="0.00" editable="false" style="-fx-background-color: #0f1520; -fx-text-fill: #4ade80; -fx-border-color: #166534; -fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 8 12 8 12; -fx-font-weight: bold;" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            </GridPane>
+
+            <HBox spacing="10">
+                <Button text="💾  Guardar" onAction="#guardar" style="-fx-background-color: #1a4a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 9 20 9 20;"/>
+                <Button text="🗑  Eliminar" onAction="#eliminar" style="-fx-background-color: #7f1d1d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 9 20 9 20;"/>
+                <Button text="✖  Limpiar" onAction="#limpiar" style="-fx-background-color: #2d3a52; -fx-text-fill: #d1d5db; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 9 20 9 20;"/>
+                <Button text="🧾  Generar Boleta" onAction="#generarBoleta" style="-fx-background-color: #166534; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 9 20 9 20;"/>
+            </HBox>
+        </VBox>
+
+        <VBox style="-fx-background-color: #1e2536; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4);" VBox.vgrow="ALWAYS">
+            <HBox style="-fx-padding: 14 20 14 20; -fx-border-color: transparent transparent #2d3a52 transparent;">
+                <Label text="LISTADO DE VENTAS" style="-fx-text-fill: #93b4d9; -fx-font-size: 11; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <TableView fx:id="tblVenta" VBox.vgrow="ALWAYS" style="-fx-background-color: #1e2536; -fx-border-color: transparent;">
+                <columns>
+                    <TableColumn fx:id="colIdVenta" text="ID VENTA" prefWidth="100"/>
+                    <TableColumn fx:id="colCliente" text="CLIENTE" prefWidth="180"/>
+                    <TableColumn fx:id="colFecha" text="FECHA" prefWidth="110"/>
+                    <TableColumn fx:id="colNetoTotal" text="NETO TOTAL" prefWidth="110"/>
+                    <TableColumn fx:id="colIgv" text="IGV" prefWidth="90"/>
+                    <TableColumn fx:id="colPrecioTotal" text="PRECIO TOTAL" prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+    </VBox>
+</VBox>

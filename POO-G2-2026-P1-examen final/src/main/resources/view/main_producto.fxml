@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="0"
+      style="-fx-background-color: #1a1f2e;"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="pe.edu.upeu.controller.ProductoController">
+
+    <!-- Header -->
+    <HBox style="-fx-background-color: #111827; -fx-padding: 16 24 16 24;" alignment="CENTER_LEFT" spacing="10">
+        <Label text="👕" style="-fx-font-size: 20;"/>
+        <VBox spacing="2">
+            <Label text="Gestión de Productos"
+                   style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+            <Label text="Administra el catálogo de polos"
+                   style="-fx-text-fill: #6b7280; -fx-font-size: 11;"/>
+        </VBox>
+    </HBox>
+
+    <!-- Separador azul -->
+    <HBox style="-fx-background-color: #1a4a8a; -fx-min-height: 3; -fx-max-height: 3;"/>
+
+    <!-- Contenido -->
+    <VBox style="-fx-padding: 24;" spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- Card formulario -->
+        <VBox style="-fx-background-color: #1e2536;
+                     -fx-background-radius: 8;
+                     -fx-padding: 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4);"
+              spacing="16">
+
+            <Label text="DATOS DEL PRODUCTO"
+                   style="-fx-text-fill: #93b4d9; -fx-font-size: 11; -fx-font-weight: bold;"/>
+
+            <!-- Dos columnas de campos -->
+            <GridPane hgap="24" vgap="14">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="110" prefWidth="110"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="160"/>
+                    <ColumnConstraints minWidth="110" prefWidth="110"/>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="160"/>
+                </columnConstraints>
+
+                <!-- Columna izquierda -->
+                <Label text="ID Producto:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtIdProducto" promptText="Ej: P01"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Nombre:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtNombre" promptText="Ej: Polo Básico"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Precio Unit.:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtPreUnitario" promptText="Ej: 25.00"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Porc. Utilidad:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtPorceUtil" promptText="Ej: 0.20"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                <!-- Columna derecha -->
+                <Label text="Talla:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtTalla" promptText="Ej: M, L, XL"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Label text="Color:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtColor" promptText="Ej: Blanco"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <Label text="Stock:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
+                <TextField fx:id="txtStock" promptText="Ej: 50"
+                           style="-fx-background-color: #111827; -fx-text-fill: white;
+                                  -fx-prompt-text-fill: #4b5563; -fx-border-color: #2d3a52;
+                                  -fx-border-radius: 6; -fx-background-radius: 6;
+                                  -fx-padding: 8 12 8 12; -fx-font-size: 13;"
+                           GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                <Label text="Categoría:"
+                       style="-fx-text-fill: #d1d5db; -fx-font-size: 13;"
+                       GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER"/>
+                <ComboBox fx:id="cmbCategoria" prefWidth="200"
+                          style="-fx-background-color: #111827;
+                                 -fx-border-color: #2d3a52;
+                                 -fx-border-radius: 6;
+                                 -fx-background-radius: 6;
+                                 -fx-font-size: 13;"
+                          GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+            </GridPane>
+
+            <!-- Botones -->
+            <HBox spacing="10">
+                <VBox.margin><Insets top="4.0"/></VBox.margin>
+                <Button text="💾  Guardar" onAction="#guardar"
+                        style="-fx-background-color: #1a4a8a;
+                               -fx-text-fill: white; -fx-font-weight: bold;
+                               -fx-font-size: 13; -fx-background-radius: 6;
+                               -fx-padding: 9 20 9 20; -fx-cursor: hand;"/>
+                <Button text="🗑  Eliminar" onAction="#eliminar"
+                        style="-fx-background-color: #7f1d1d;
+                               -fx-text-fill: white; -fx-font-weight: bold;
+                               -fx-font-size: 13; -fx-background-radius: 6;
+                               -fx-padding: 9 20 9 20; -fx-cursor: hand;"/>
+                <Button text="✖  Limpiar" onAction="#limpiar"
+                        style="-fx-background-color: #2d3a52;
+                               -fx-text-fill: #d1d5db; -fx-font-weight: bold;
+                               -fx-font-size: 13; -fx-background-radius: 6;
+                               -fx-padding: 9 20 9 20; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+
+        <!-- Card tabla -->
+        <VBox style="-fx-background-color: #1e2536;
+                     -fx-background-radius: 8;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 4);"
+              spacing="0" VBox.vgrow="ALWAYS">
+
+            <HBox style="-fx-padding: 14 20 14 20; -fx-border-color: transparent transparent #2d3a52 transparent;">
+                <Label text="LISTADO DE PRODUCTOS"
+                       style="-fx-text-fill: #93b4d9; -fx-font-size: 11; -fx-font-weight: bold;"/>
+            </HBox>
+
+            <TableView fx:id="tblProducto" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: #1e2536;
+                              -fx-border-color: transparent;
+                              -fx-table-cell-border-color: #2d3a52;">
+                <columns>
+                    <TableColumn fx:id="colIdProducto"  text="ID"          prefWidth="70"/>
+                    <TableColumn fx:id="colNombre"      text="NOMBRE"      prefWidth="150"/>
+                    <TableColumn fx:id="colPreUnitario" text="PRECIO"      prefWidth="80"/>
+                    <TableColumn fx:id="colPorceUtil"   text="PORC. UTIL." prefWidth="90"/>
+                    <TableColumn fx:id="colTalla"       text="TALLA"       prefWidth="65"/>
+                    <TableColumn fx:id="colColor"       text="COLOR"       prefWidth="80"/>
+                    <TableColumn fx:id="colStock"       text="STOCK"       prefWidth="65"/>
+                    <TableColumn fx:id="colCategoria"   text="CATEGORÍA"   prefWidth="110"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+    </VBox>
+</VBox>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pe.edu.upeu.controller.LoginController"
+            style="-fx-background-color: #1a1f2e;"
+            prefWidth="420.0" prefHeight="480.0">
+
+    <children>
+
+        <!-- Header con círculos de ventana -->
+        <HBox layoutX="0.0" layoutY="0.0" spacing="10"
+              style="-fx-background-color: #111827; -fx-padding: 12 16 12 16;"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Label style="-fx-background-color: #ff5f57; -fx-background-radius: 50; -fx-min-width: 13; -fx-min-height: 13; -fx-max-width: 13; -fx-max-height: 13;"/>
+                <Label style="-fx-background-color: #febc2e; -fx-background-radius: 50; -fx-min-width: 13; -fx-min-height: 13; -fx-max-width: 13; -fx-max-height: 13;"/>
+                <Label style="-fx-background-color: #28c840; -fx-background-radius: 50; -fx-min-width: 13; -fx-min-height: 13; -fx-max-width: 13; -fx-max-height: 13;"/>
+                <Label text="SysVentas — Login"
+                       style="-fx-text-fill: #6b7280; -fx-font-size: 12;"
+                       HBox.hgrow="ALWAYS">
+                    <HBox.margin><Insets left="8.0"/></HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+
+        <!-- Card central -->
+        <VBox layoutX="40.0" layoutY="70.0"
+              spacing="0"
+              style="-fx-background-color: #1e2536; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 20, 0, 0, 6);"
+              prefWidth="340.0"
+              AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+
+            <!-- Top azul del card -->
+            <VBox style="-fx-background-color: #1a4a8a; -fx-background-radius: 12 12 0 0; -fx-padding: 28 24 24 24;"
+                  alignment="CENTER">
+                <Label text="👕"
+                       style="-fx-font-size: 40;"/>
+                <Label text="SysVentas Polos"
+                       style="-fx-text-fill: white; -fx-font-size: 22; -fx-font-weight: bold;">
+                    <VBox.margin><Insets top="8.0"/></VBox.margin>
+                </Label>
+                <Label text="Sistema de Ventas"
+                       style="-fx-text-fill: #93b4d9; -fx-font-size: 13;">
+                    <VBox.margin><Insets top="4.0"/></VBox.margin>
+                </Label>
+            </VBox>
+
+            <!-- Formulario -->
+            <VBox style="-fx-padding: 28 24 28 24;" spacing="16">
+
+                <!-- Usuario -->
+                <VBox spacing="6">
+                    <Label text="USUARIO"
+                           style="-fx-text-fill: #93b4d9; -fx-font-size: 11; -fx-font-weight: bold;"/>
+                    <TextField fx:id="txtUsuario"
+                               promptText="Ingresa tu usuario"
+                               style="-fx-background-color: #111827;
+                                      -fx-text-fill: white;
+                                      -fx-prompt-text-fill: #4b5563;
+                                      -fx-border-color: #2d3a52;
+                                      -fx-border-radius: 6;
+                                      -fx-background-radius: 6;
+                                      -fx-padding: 10 14 10 14;
+                                      -fx-font-size: 13;"/>
+                </VBox>
+
+                <!-- Clave -->
+                <VBox spacing="6">
+                    <Label text="CONTRASEÑA"
+                           style="-fx-text-fill: #93b4d9; -fx-font-size: 11; -fx-font-weight: bold;"/>
+                    <PasswordField fx:id="txtClave"
+                                   promptText="Ingresa tu contraseña"
+                                   style="-fx-background-color: #111827;
+                                          -fx-text-fill: white;
+                                          -fx-prompt-text-fill: #4b5563;
+                                          -fx-border-color: #2d3a52;
+                                          -fx-border-radius: 6;
+                                          -fx-background-radius: 6;
+                                          -fx-padding: 10 14 10 14;
+                                          -fx-font-size: 13;"/>
+                </VBox>
+
+                <!-- Botones -->
+                <VBox spacing="10">
+                    <VBox.margin><Insets top="8.0"/></VBox.margin>
+                    <Button mnemonicParsing="false" text="INGRESAR"
+                            maxWidth="1.7976931348623157E308"
+                            onAction="#login"
+                            style="-fx-background-color: #1a4a8a;
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 13;
+                                   -fx-background-radius: 6;
+                                   -fx-padding: 12 0 12 0;
+                                   -fx-border-color: transparent;
+                                   -fx-cursor: hand;"/>
+                    <Button mnemonicParsing="false" text="CERRAR"
+                            maxWidth="1.7976931348623157E308"
+                            onAction="#cerrar"
+                            style="-fx-background-color: #2d3a52;
+                                   -fx-text-fill: #d1d5db;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 13;
+                                   -fx-background-radius: 6;
+                                   -fx-padding: 12 0 12 0;
+                                   -fx-cursor: hand;"/>
+                </VBox>
+
+            </VBox>
+
+        </VBox>
+
+        <!-- Footer -->
+        <Label text="© 2026 SysVentas · UPEU"
+               layoutY="450.0"
+               style="-fx-text-fill: #374151; -fx-font-size: 11;"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+               alignment="CENTER"/>
+
+    </children>
+</AnchorPane>
