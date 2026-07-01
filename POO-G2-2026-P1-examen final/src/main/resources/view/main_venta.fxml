@@ -76,6 +76,9 @@
             <TableView fx:id="tblVenta" VBox.vgrow="ALWAYS" style="-fx-background-color: #1e2536; -fx-border-color: transparent;">
                 <columns>
                     <TableColumn fx:id="colIdVenta" text="ID VENTA" prefWidth="100"/>
+                    <TableColumn fx:id="colProducto" text="PRODUCTO" prefWidth="150"/>
+                    <TableColumn fx:id="colCantidad" text="CANTIDAD" prefWidth="90"/>
+                    <TableColumn fx:id="colPrecioUnitario" text="P. UNITARIO" prefWidth="100"/>
                     <TableColumn fx:id="colCliente" text="CLIENTE" prefWidth="180"/>
                     <TableColumn fx:id="colFecha" text="FECHA" prefWidth="110"/>
                     <TableColumn fx:id="colNetoTotal" text="NETO TOTAL" prefWidth="110"/>

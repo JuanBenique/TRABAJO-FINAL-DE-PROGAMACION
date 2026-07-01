@@ -39,6 +39,9 @@ import pe.edu.upeu.model.Producto;
 
 public class VentaController {
 
+    @FXML private TableColumn<Venta, String> colProducto;
+    @FXML private TableColumn<Venta, String> colCantidad;
+    @FXML private TableColumn<Venta, String> colPrecioUnitario;
     @FXML private ComboBox<Producto> cmbProducto;//seleccionar a base de opcioned
     @FXML private TextField txtPrecioUnitario;//agrega el precio unitario del producto sijn opciones de camviarlo
     @FXML private TextField txtCantidad;//permite selecionar o poner la cantidad que quieres
@@ -55,7 +58,9 @@ public class VentaController {
     @FXML private ComboBox<Cliente> cmbCliente;
     @FXML private TextField txtNetoTotal;
     @FXML private TextField txtIgv;
+
     @FXML private TextField txtPrecioTotal;
+
 
     private final IVentaService ventaService;
     private final IClienteService clienteService;
@@ -86,6 +91,35 @@ public class VentaController {
         colNetoTotal.setCellValueFactory(new PropertyValueFactory<>("netoTotal"));
         colIgv.setCellValueFactory(new PropertyValueFactory<>("igv"));
         colPrecioTotal.setCellValueFactory(new PropertyValueFactory<>("precioTotal"));
+        colProducto.setCellValueFactory(cellData -> {
+            List<VentaDetalle> detalles = ventaDetalleRepository.findByIdVenta(cellData.getValue().getIdVenta());
+
+            if (detalles.isEmpty()) {
+                return new SimpleStringProperty("");
+            }
+
+            return new SimpleStringProperty(detalles.get(0).getIdProducto().getNombre());
+        });
+
+        colCantidad.setCellValueFactory(cellData -> {
+            List<VentaDetalle> detalles = ventaDetalleRepository.findByIdVenta(cellData.getValue().getIdVenta());
+
+            if (detalles.isEmpty()) {
+                return new SimpleStringProperty("");
+            }
+
+            return new SimpleStringProperty(String.valueOf(detalles.get(0).getCantidad()));
+        });
+
+        colPrecioUnitario.setCellValueFactory(cellData -> {
+            List<VentaDetalle> detalles = ventaDetalleRepository.findByIdVenta(cellData.getValue().getIdVenta());
+
+            if (detalles.isEmpty()) {
+                return new SimpleStringProperty("");
+            }
+
+            return new SimpleStringProperty(String.valueOf(detalles.get(0).getPrecioUni()));
+        });
 
         // Fecha automática ya no manual coomo antes
         // se cambio dpFechaVenta.setValue(null);
@@ -209,6 +243,8 @@ public class VentaController {
 
     private void cargarDatos() {
         cmbCliente.setItems(FXCollections.observableArrayList(clienteService.findAll()));
+        //para cargar los nuevos datos del polo
+        cmbProducto.setItems(FXCollections.observableArrayList(productoService.findAll()));
         lista.setAll(ventaService.findAll());
         tblVenta.setItems(lista);
         tblVenta.refresh();
@@ -216,67 +252,113 @@ public class VentaController {
 
     @FXML
     private void guardar() {
-        if (txtIdVenta.getText().isEmpty() || cmbCliente.getValue() == null || dpFechaVenta.getValue() == null) {
-            mostrarAlerta("Error", "ID, Cliente y Fecha son obligatorios.");
+        if (txtIdVenta.getText().isEmpty()
+                || cmbCliente.getValue() == null
+                || dpFechaVenta.getValue() == null
+                || cmbProducto.getValue() == null
+                || txtCantidad.getText().isEmpty()) {
+
+            mostrarAlerta("Error", "Complete ID, Cliente, Fecha, Producto y Cantidad.");
             return;
         }
-        // Validar que el ID nosea menor
+
         try {
             int id = Integer.parseInt(txtIdVenta.getText());
 
             if (id <= 0) {
-                mostrarAlerta("Error", "El ID de Venta debe ser un número mayor que 0.");
+                mostrarAlerta("Error", "El ID de Venta debe ser mayor que 0.");
                 return;
             }
 
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "El ID de Venta debe ser un número válido.");
-            return;
-        }
-        try {
-            // CORRECCIÓN APLICADA: Se usa loginUsuario en lugar de findByUsuarioAndClave
+            int cantidad = Integer.parseInt(txtCantidad.getText());
+
+            if (cantidad <= 0) {
+                mostrarAlerta("Error", "La cantidad debe ser mayor que 0.");
+                return;
+            }
+
+            Producto producto = cmbProducto.getValue();
+            double precioUnitario = producto.getPreUnitario();
+            double netoTotal = precioUnitario * cantidad;
+            double igv = netoTotal * 0.18;
+            double precioTotal = netoTotal;
+
             Usuario usuarioResponsable;
             Optional<Usuario> optUsu = usuarioService.loginUsuario("juan123", "juan123456");
 
-            if(optUsu.isPresent()){
+            if (optUsu.isPresent()) {
                 usuarioResponsable = optUsu.get();
             } else {
                 usuarioResponsable = new Usuario();
                 usuarioResponsable.setIdUsuario("1");
             }
 
-            Venta v = Venta.builder()
+            Venta venta = Venta.builder()
                     .idVenta(txtIdVenta.getText())
                     .dniCliente(cmbCliente.getValue())
                     .fechaVenta(dpFechaVenta.getValue())
-                    .netoTotal(Double.parseDouble(txtNetoTotal.getText()))
-                    .igv(Double.parseDouble(txtIgv.getText()))
-                    .precioTotal(Double.parseDouble(txtPrecioTotal.getText()))
+                    .netoTotal(netoTotal)
+                    .igv(igv)
+                    .precioTotal(precioTotal)
                     .idUsuario(usuarioResponsable)
                     .build();
 
-            if (ventaService.existsById(v.getIdVenta())) {
-                ventaService.update(v.getIdVenta(), v);
-            } else {
-                ventaService.save(v);
+            if (ventaService.existsById(venta.getIdVenta())) {
+                mostrarAlerta("Error", "El ID de Venta ya existe. Ingrese otro ID.");
+                return;
             }
+
+            ventaService.save(venta);
+
+            VentaDetalle detalle = VentaDetalle.builder()
+                    .idVentaDetalle("VD" + venta.getIdVenta())
+                    .idVenta(venta)
+                    .idProducto(producto)
+                    .precioUni(precioUnitario)
+                    .porceUtil(producto.getPorceUtil())
+                    .cantidad(cantidad)
+                    .netoTotal(netoTotal)
+                    .build();
+
+            ventaDetalleService.save(detalle);
+
+            mostrarAlerta("Éxito", "Venta registrada correctamente.");
+
             limpiar();
             cargarDatos();
+
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "Los montos deben ser numéricos.");
+            mostrarAlerta("Error", "ID y cantidad deben ser números válidos.");
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo guardar la venta: " + e.getMessage());
         }
     }
-
     @FXML
     private void eliminar() {
         Venta sel = tblVenta.getSelectionModel().getSelectedItem();
+
         if (sel == null) {
             mostrarAlerta("Error", "Seleccione una venta.");
             return;
         }
-        ventaService.delete(sel.getIdVenta());
-        limpiar();
-        cargarDatos();
+
+        try {
+            List<VentaDetalle> detalles = ventaDetalleRepository.findByIdVenta(sel.getIdVenta());
+
+            for (VentaDetalle d : detalles) {
+                ventaDetalleService.delete(d.getIdVentaDetalle());
+            }
+
+            ventaService.delete(sel.getIdVenta());
+
+            mostrarAlerta("Éxito", "Venta eliminada correctamente.");
+
+            limpiar();
+            cargarDatos();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo eliminar la venta: " + e.getMessage());
+        }
     }
 
     @FXML
